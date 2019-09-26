@@ -1,7 +1,7 @@
 # fazer decodificador para o arduino usando python 
 # primeiro ler um arquivo com as instrucoes de alto nivel e depois interpretar para o arduino
-arquivo = "textoula.txt"
-saida = "output.txt"
+arquivo = "pub.ula"
+saida = "pub.hex"
 a = 0
 b = 0
 error = -1
@@ -17,7 +17,7 @@ inicio = file.readline()
 
 # print(inicio.strip())
 
-if inicio.strip() != "BEGIN:":
+if inicio.strip() != "inicio:":
     raise Exception ("Erro: Arquivo selecionado invalido ou errado")
 
 
@@ -169,7 +169,7 @@ for x in file:
 
     # print(x)
 
-    if "END." in x:
+    if "fim." in x:
         continue
 
     if '=' in x:
@@ -185,6 +185,8 @@ for x in file:
 
     else:
         selecionar_operacao(x)
+
+
 
 
 file.close()
