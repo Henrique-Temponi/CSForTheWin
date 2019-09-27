@@ -1,7 +1,12 @@
 # fazer decodificador para o arduino usando python 
 # primeiro ler um arquivo com as instrucoes de alto nivel e depois interpretar para o arduino
-arquivo = "pub.ula"
-saida = "pub.hex"
+# import serial
+# import time
+
+# serial.Serial('COM4')  # a com que sera usada no computador
+arquivo = "testeula.ula"
+saida = "pubout.hex"
+lista = ["0", "0", "0"]
 a = 0
 b = 0
 error = -1
@@ -34,8 +39,11 @@ def atribuir_valor(Variavel=error, Valor=-1):
 
     if Variavel == "A":
         a = Valor
+        lista[0] = str(a)
+
     elif Variavel == "B":
         b = Valor
+        lista[1] = str(b)
 
 
 def pegar_valor(line):
@@ -52,10 +60,16 @@ def pegar_valor(line):
 
 
 def imprimir_saida(x):
+    lista[2] = str(x)
+
     outfile.write(str(a))
     outfile.write(str(b))
     outfile.write(x)
     outfile.write("\n")
+
+    dados = "".join(lista)
+    dados = dados.encode()
+    print(dados)
 
 
 def valor_logico(line):
