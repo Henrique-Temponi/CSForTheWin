@@ -11,17 +11,31 @@ void setup()
   } 
 }
 
-void toBit (char x){
+String toBit (char x){
 
   String resposta = "";
   
-  
+  int decimal = (int)x;
+
+  while (x > 0){
+    
+    resposta = resposta + (x % 2);
+    x = x / 2;
+  }
 
   return resposta;
 }
 
-void mostrar (char x ){
-  
+void mostrar (char x){
+
+  String dado = toBit (x);
+
+  int tam = dado.length();
+
+  digitalWrite(vermelho, dado[tam-1]);
+  digitalWrite(amarelo, dado[tam-2]);
+  digitalWrite(verde, dado[tam-3]);
+  digitalWrite(azul, dado[tam-4]);
 }
 
 void ULA (char op, char a, char b){
@@ -36,7 +50,7 @@ void ULA (char op, char a, char b){
     
   case '1':
 
-    mostrar (~(a|b);
+    mostrar (~(a|b));
   
     break;
     
@@ -139,7 +153,7 @@ void loop()
     char b   = dados[1];
     char op  = dados[2];
 
-    ULA(op, a, b)
+    ULA(op, a, b);
 
     Serial.flush();
   }
