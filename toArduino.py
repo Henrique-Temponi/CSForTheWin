@@ -1,11 +1,11 @@
 # fazer decodificador para o arduino usando python 
 # primeiro ler um arquivo com as instrucoes de alto nivel e depois interpretar para o arduino
-# import serial
-# import time
+import serial
+import time
 
-# serial.Serial('COM4')  # a com que sera usada no computador
+serial.Serial('COM12')  # a com que sera usada no computador
 arquivo = "testeula.ula"
-saida = "pubout.hex"
+saida = "testeula.hex"
 lista = ["0", "0", "0"]
 a = 0
 b = 0
@@ -66,9 +66,11 @@ def imprimir_saida(x):
     outfile.write(str(b))
     outfile.write(x)
     outfile.write("\n")
-
+	
     dados = "".join(lista)
     dados = dados.encode()
+	serial.write(dados)
+	
     print(dados)
 
 
