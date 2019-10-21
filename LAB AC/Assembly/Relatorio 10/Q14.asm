@@ -1,5 +1,6 @@
+
 # Ler da memoria temp e flag
-# se 30 <= temp => 50
+# se 30 <= temp <= 50
 # colocar a flag como 1
 # se nao 0
 #
@@ -22,20 +23,22 @@ main:
 	addi $t3, $zero, 50		# 
 	
 	slt $t1, $t3, $s0 		# if (50 < temp)
-	beq $t1, $zero, nao_intervalo	#
+	bne $t1, $zero, nao_intervalo	#
 	slt $t1, $s0, $t1		# if (temp < 30)
-	beq $t1, $zero, nao_intervalo	#
+	bne $t1, $zero, nao_intervalo	#
 
-	
-	
-	
-	
-	
+	ori $s1, $zero, 1		# colocar um na flag a flag
+	sw $s1, 4($t0)			# carregar valor na memoria
+	j fim
+		
 nao_intervalo:
 	
 	and $s1, $zero, $s1		# zerar a flag
 	sw $s1, 4($t0)			# carregar valor na memoria
-	
+
+fim:	
+
+
 .data
-	Temp: .word 40
+	Temp: .word 50
 	Flag: .word -1
