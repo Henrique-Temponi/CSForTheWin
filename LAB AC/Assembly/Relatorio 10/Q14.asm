@@ -18,9 +18,14 @@ main:
 	lw $s0, 0($t0)			# load temp
 	lw $s1, 4($t0)			# load flag
 	
-	slti $t1, $s0, 50		# if (tmep < 50)
+	addi $t2, $zero, 30		# 
+	addi $t3, $zero, 50		# 
 	
+	slt $t1, $t3, $s0 		# if (50 < temp)
 	beq $t1, $zero, nao_intervalo	#
+	slt $t1, $s0, $t1		# if (temp < 30)
+	beq $t1, $zero, nao_intervalo	#
+
 	
 	
 	
