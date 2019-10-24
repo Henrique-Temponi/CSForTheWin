@@ -17,5 +17,5 @@ fim:
 	sw $t1, 0($t0)
 	
 .data
-	A: .word 100
+	A: .word -100
 	
