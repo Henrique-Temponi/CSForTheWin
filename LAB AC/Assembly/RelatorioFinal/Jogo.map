@@ -1,0 +1,46 @@
+MPLINK 4.35, Linker
+Linker Map File - Created Thu Nov 21 18:22:06 2019
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000038
+      .config_2007_JOGO.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x00001b      
+                            0x002007    0x002007      
+            29 out of 2183 program addresses used, program memory utilization is 1%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                  ATRASO1   0x000010    program     static C:\Users\1135188\Downloads\CSForTheWin\LAB AC\Assembly\RelatorioFinal\Jogo.asm
+                  ATRASO2   0x000012    program     static C:\Users\1135188\Downloads\CSForTheWin\LAB AC\Assembly\RelatorioFinal\Jogo.asm
+                  ATRASO3   0x000014    program     static C:\Users\1135188\Downloads\CSForTheWin\LAB AC\Assembly\RelatorioFinal\Jogo.asm
+                   INICIO   0x000001    program     static C:\Users\1135188\Downloads\CSForTheWin\LAB AC\Assembly\RelatorioFinal\Jogo.asm
+                     MAIN   0x00000b    program     static C:\Users\1135188\Downloads\CSForTheWin\LAB AC\Assembly\RelatorioFinal\Jogo.asm
+                  TIMEOUT   0x00000d    program     static C:\Users\1135188\Downloads\CSForTheWin\LAB AC\Assembly\RelatorioFinal\Jogo.asm
+                     TTTT   0x00001b    program     static C:\Users\1135188\Downloads\CSForTheWin\LAB AC\Assembly\RelatorioFinal\Jogo.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x000001    program     static C:\Users\1135188\Downloads\CSForTheWin\LAB AC\Assembly\RelatorioFinal\Jogo.asm
+                     MAIN   0x00000b    program     static C:\Users\1135188\Downloads\CSForTheWin\LAB AC\Assembly\RelatorioFinal\Jogo.asm
+                  TIMEOUT   0x00000d    program     static C:\Users\1135188\Downloads\CSForTheWin\LAB AC\Assembly\RelatorioFinal\Jogo.asm
+                  ATRASO1   0x000010    program     static C:\Users\1135188\Downloads\CSForTheWin\LAB AC\Assembly\RelatorioFinal\Jogo.asm
+                  ATRASO2   0x000012    program     static C:\Users\1135188\Downloads\CSForTheWin\LAB AC\Assembly\RelatorioFinal\Jogo.asm
+                  ATRASO3   0x000014    program     static C:\Users\1135188\Downloads\CSForTheWin\LAB AC\Assembly\RelatorioFinal\Jogo.asm
+                     TTTT   0x00001b    program     static C:\Users\1135188\Downloads\CSForTheWin\LAB AC\Assembly\RelatorioFinal\Jogo.asm
+
+
