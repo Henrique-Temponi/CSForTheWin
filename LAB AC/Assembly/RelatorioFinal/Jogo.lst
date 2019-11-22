@@ -1,4 +1,4 @@
-MPASM  5.35                          JOGO.ASM   11-21-2019  18:22:05         PAGE  1
+MPASM  5.35                          JOGO.ASM   11-22-2019  18:04:37         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -18,96 +18,268 @@ Warning[205]: Found directive in column 1. (__CONFIG)
   00000020            00006         CONTADOR1
   00000021            00007         CONTADOR2
   00000022            00008         CONTADOR3
-                      00009         ENDC                    ;FIM DO BLOCO DE MEMÓRIA                
-                      00010 
-                      00011 #DEFINE BOTAO   PORTA,2 ;PORTA DO BOTÃO
-                      00012                                         ; 0 -> PRESSIONADO
-                      00013                                         ; 1 -> LIBERADO
-                      00014 
-                      00015 #DEFINE LED1    PORTB,0 ;PORTA DO LED 0 -> APAGADO 1 -> ACESO
-                      00016 #DEFINE LED2    PORTB,1 ;PORTA DO LED 0 -> APAGADO 1 -> ACESO
-                      00017 #DEFINE LED3    PORTB,2 ;PORTA DO LED 0 -> APAGADO 1 -> ACESO
-                      00018 #DEFINE LED4    PORTB,3 ;PORTA DO LED 0 -> APAGADO 1 -> ACESO
-                      00019 #DEFINE LED5    PORTB,4 ;PORTA DO LED 0 -> APAGADO 1 -> ACESO
-                      00020 #DEFINE LED6    PORTB,5 ;PORTA DO LED 0 -> APAGADO 1 -> ACESO
-                      00021 
-0000                  00022         ORG     0x00            ;ENDEREÇO INICIAL DE PROCESSAMENTO
-0000   2801           00023         GOTO    INICIO
-                      00024         
-0001                  00025 INICIO
-0001   0185           00026         CLRF    PORTA           ;LIMPA O PORTA
-0002   0186           00027         CLRF    PORTB           ;LIMPA O PORTB
-0003   1683           00028         BSF STATUS, RP0                 ;ALTERA PARA O BANCO 1
-0004   3004           00029         MOVLW   B'00000100'
+  00000023            00009         TEMPO
+                      00010         ENDC                    ;FIM DO BLOCO DE MEMÓRIA                
+                      00011 
+                      00012 #DEFINE BOTAO   PORTA,2 ;PORTA DO BOTÃO
+                      00013                                         ; 0 -> PRESSIONADO
+                      00014                                         ; 1 -> LIBERADO
+                      00015 
+                      00016 #DEFINE LED1    PORTB,0 ;PORTA DO LED 0 -> APAGADO 1 -> ACESO
+                      00017 #DEFINE LED2    PORTB,1 ;PORTA DO LED 0 -> APAGADO 1 -> ACESO
+                      00018 #DEFINE LED3    PORTB,2 ;PORTA DO LED 0 -> APAGADO 1 -> ACESO
+                      00019 #DEFINE LED4    PORTB,3 ;PORTA DO LED 0 -> APAGADO 1 -> ACESO
+                      00020 #DEFINE LED5    PORTB,4 ;PORTA DO LED 0 -> APAGADO 1 -> ACESO
+                      00021 #DEFINE LED6    PORTB,5 ;PORTA DO LED 0 -> APAGADO 1 -> ACESO
+                      00022 
+0000                  00023         ORG     0x00            ;ENDEREÇO INICIAL DE PROCESSAMENTO
+0000   2801           00024         GOTO    INICIO
+                      00025         
+0001                  00026 INICIO
+0001   0185           00027         CLRF    PORTA           ;LIMPA O PORTA
+0002   0186           00028         CLRF    PORTB           ;LIMPA O PORTB
+0003   1683           00029         BSF STATUS, RP0                 ;ALTERA PARA O BANCO 1
+0004   3004           00030         MOVLW   B'00000100'
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0005   0085           00030         MOVWF   TRISA           ;DEFINE RA2 COMO ENTRADA E DEMAIS COMO SAÍDAS
+0005   0085           00031         MOVWF   TRISA           ;DEFINE RA2 COMO ENTRADA E DEMAIS COMO SAÍDAS
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0006   0186           00031         CLRF    TRISB           ;DEFINE TODO O PORTB COMO SAÍDA
-0007   018B           00032         CLRF    INTCON          ;TODAS AS INTERRUPÇÕES DESLIGADAS       
-0008   1283           00033         BCF STATUS, RP0 ;RETORNA PARA O BANCO 0
-0009   3007           00034         MOVLW   B'00000111'
-000A   009F           00035         MOVWF   CMCON           ;DEFINE O MODO DO COMPARADOR ANALÓGICO
-                      00036 
-000B                  00037 MAIN
-000B   200D           00038         CALL TIMEOUT
-000C   280B           00039         GOTO MAIN
-                      00040         
+0006   0186           00032         CLRF    TRISB           ;DEFINE TODO O PORTB COMO SAÍDA
+0007   018B           00033         CLRF    INTCON          ;TODAS AS INTERRUPÇÕES DESLIGADAS       
+0008   1283           00034         BCF STATUS, RP0 ;RETORNA PARA O BANCO 0
+0009   3007           00035         MOVLW   B'00000111'
+000A   009F           00036         MOVWF   CMCON           ;DEFINE O MODO DO COMPARADOR ANALÓGICO
+                      00037 
+000B                  00038 MAIN
+000B   2877           00039         GOTO GAME
+000C   280B           00040         GOTO MAIN
+                      00041         
 Warning[207]: Found label after column 1. (TIMEOUT)
-000D                  00041         TIMEOUT
-                      00042                 
-000D   3006           00043                 MOVLW 6
-000E   00A0           00044                 MOVWF CONTADOR1
-MPASM  5.35                          JOGO.ASM   11-21-2019  18:22:05         PAGE  2
+000D                  00042         TIMEOUT
+                      00043                 
+000D   3006           00044                 MOVLW 6
+MPASM  5.35                          JOGO.ASM   11-22-2019  18:04:37         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-000F   201B           00045                 CALL TTTT
-                      00046                 
+000E   00A0           00045                 MOVWF CONTADOR1
+                      00046 
+                      00047                 ;BTFSC BOTAO
+                      00048                 ;CALL BUTTONTIMEOUT
+                      00049                 
 Warning[207]: Found label after column 1. (ATRASO1)
-0010                  00047                 ATRASO1
-0010   30FA           00048                         MOVLW 250
-0011   00A1           00049                         MOVWF CONTADOR2
-                      00050                                 
+000F                  00050                 ATRASO1
+000F   3025           00051                         MOVLW 37
+0010   00A1           00052                         MOVWF CONTADOR2
+                      00053                                 
 Warning[207]: Found label after column 1. (ATRASO2)
-0012                  00051                                 ATRASO2
-0012   30DD           00052                                         MOVLW 221
-0013   00A2           00053                                         MOVWF CONTADOR3
-                      00054                                                 
+0011                  00054                                 ATRASO2
+0011   307D           00055                                         MOVLW 125
+0012   00A2           00056                                         MOVWF CONTADOR3
+0013   0000           00057                                         NOP
 Warning[207]: Found label after column 1. (ATRASO3)
-0014                  00055                                         ATRASO3
+0014                  00058                                         ATRASO3
+0014   300A           00059                                                 MOVLW 10
+0015   00A3           00060                                                 MOVWF TEMPO
+                      00061                                                         
+Warning[207]: Found label after column 1. (ATRASOBUTAO)
+0016                  00062                                                 ATRASOBUTAO                                             
+                                    
 Message[305]: Using default destination of 1 (file).
-0014   0BA2           00056                                                 DECFSZ CONTADOR3
-0015   2814           00057                                                 GOTO ATRASO3
-                      00058                                 
+0016   0BA3           00063                                                         DECFSZ TEMPO
+0017   2816           00064                                                         GOTO ATRASOBUTAO
+                      00065 
+0018   1D05           00066                                                 BTFSS BOTAO
+0019   2821           00067                                                 GOTO PREWIN
+                      00068                                                 
 Message[305]: Using default destination of 1 (file).
-0016   0BA1           00059                                 DECFSZ CONTADOR2
-0017   2812           00060                                 GOTO ATRASO2
-                      00061                 
+001A   0BA2           00069                                                 DECFSZ CONTADOR3
+001B   2814           00070                                                 GOTO ATRASO3
+                      00071                                 
 Message[305]: Using default destination of 1 (file).
-0018   0BA0           00062                 DECFSZ CONTADOR1
-0019   2810           00063                 GOTO ATRASO1
-                      00064 
-001A   0008           00065         RETURN 
-                      00066         
-                      00067 
-Warning[207]: Found label after column 1. (TTTT)
-001B                  00068         TTTT
-001B   0008           00069         RETURN
-                      00070         
-                      00071 
-                      00072         END                     ;OBRIGATÓRIO
-MPASM  5.35                          JOGO.ASM   11-21-2019  18:22:05         PAGE  3
+001C   0BA1           00072                                 DECFSZ CONTADOR2
+001D   2811           00073                                 GOTO ATRASO2
+                      00074                 
+Message[305]: Using default destination of 1 (file).
+001E   0BA0           00075                 DECFSZ CONTADOR1
+001F   280F           00076                 GOTO ATRASO1
+                      00077 
+0020   0008           00078         RETURN 
+                      00079         
+Warning[207]: Found label after column 1. (PREWIN)
+0021                  00080         PREWIN
+0021   1806           00081                 BTFSC LED1
+0022   2826           00082                 GOTO FIM
+                      00083 
+0023   1986           00084                 BTFSC LED4
+0024   2826           00085                 GOTO FIM
+                      00086 
+0025   2814           00087                 GOTO ATRASO3
+MPASM  5.35                          JOGO.ASM   11-22-2019  18:04:37         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00088 
+Warning[207]: Found label after column 1. (FIM)
+0026                  00089         FIM
+0026   1406           00090                 BSF LED1
+0027   1486           00091                 BSF LED2
+0028   1506           00092                 BSF LED3
+0029   1586           00093                 BSF LED4
+002A   1606           00094                 BSF LED5
+002B   1686           00095                 BSF LED6
+                      00096 
+002C   3064           00097                 MOVLW 100
+002D   00A0           00098                 MOVWF CONTADOR1
+                      00099                 
+Warning[207]: Found label after column 1. (ATRASO1F)
+002E                  00100                 ATRASO1F
+002E   3064           00101                         MOVLW 100
+002F   00A1           00102                         MOVWF CONTADOR2
+                      00103                                 
+Warning[207]: Found label after column 1. (ATRASO2F)
+0030                  00104                                 ATRASO2F
+0030   3064           00105                                         MOVLW 100
+0031   00A2           00106                                         MOVWF CONTADOR3
+Warning[207]: Found label after column 1. (ATRASO3F)
+0032                  00107                                         ATRASO3F
+Message[305]: Using default destination of 1 (file).
+0032   0BA2           00108                                                 DECFSZ CONTADOR3
+0033   2832           00109                                                 GOTO ATRASO3F
+                      00110                                 
+Message[305]: Using default destination of 1 (file).
+0034   0BA1           00111                                 DECFSZ CONTADOR2
+0035   2830           00112                                 GOTO ATRASO2F
+                      00113                 
+Message[305]: Using default destination of 1 (file).
+0036   0BA0           00114                 DECFSZ CONTADOR1
+0037   282E           00115                 GOTO ATRASO1F
+                      00116 
+                      00117 
+                      00118                 
+0038   1006           00119                 BCF LED1
+0039   1086           00120                 BCF LED2
+003A   1106           00121                 BCF LED3
+003B   1186           00122                 BCF LED4
+003C   1206           00123                 BCF LED5
+003D   1286           00124                 BCF LED6
+003E   2879           00125                 GOTO END1
+                      00126         
+Warning[207]: Found label after column 1. (ONLED)
+003F                  00127         ONLED
+003F   1486           00128                 BSF LED2
+0040   200D           00129                 CALL TIMEOUT
+0041   1086           00130                 BCF LED2
+0042   200D           00131                 CALL TIMEOUT
+                      00132 
+MPASM  5.35                          JOGO.ASM   11-22-2019  18:04:37         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0043   1406           00133                 BSF LED1
+0044   200D           00134                 CALL TIMEOUT
+0045   1006           00135                 BCF LED1
+0046   200D           00136                 CALL TIMEOUT
+                      00137 
+0047   1486           00138                 BSF LED2
+0048   200D           00139                 CALL TIMEOUT
+0049   1086           00140                 BCF LED2
+004A   200D           00141                 CALL TIMEOUT
+                      00142 
+004B   1606           00143                 BSF LED5
+004C   200D           00144                 CALL TIMEOUT
+004D   1206           00145                 BCF LED5
+004E   200D           00146                 CALL TIMEOUT
+                      00147 
+004F   1486           00148                 BSF LED2
+0050   200D           00149                 CALL TIMEOUT
+0051   1086           00150                 BCF LED2
+0052   200D           00151                 CALL TIMEOUT
+                      00152 
+0053   1686           00153                 BSF LED6
+0054   200D           00154                 CALL TIMEOUT
+0055   1286           00155                 BCF LED6
+0056   200D           00156                 CALL TIMEOUT
+                      00157 
+0057   1506           00158                 BSF LED3
+0058   200D           00159                 CALL TIMEOUT
+0059   1106           00160                 BCF LED3
+005A   200D           00161                 CALL TIMEOUT
+                      00162 
+005B   1406           00163                 BSF LED1
+005C   200D           00164                 CALL TIMEOUT
+005D   1006           00165                 BCF LED1
+005E   200D           00166                 CALL TIMEOUT
+                      00167 
+005F   1506           00168                 BSF LED3
+0060   200D           00169                 CALL TIMEOUT
+0061   1106           00170                 BCF LED3
+0062   200D           00171                 CALL TIMEOUT
+                      00172 
+0063   1506           00173                 BSF LED3
+0064   200D           00174                 CALL TIMEOUT
+0065   1106           00175                 BCF LED3
+0066   200D           00176                 CALL TIMEOUT
+                      00177 
+0067   1686           00178                 BSF LED6
+0068   200D           00179                 CALL TIMEOUT
+0069   1286           00180                 BCF LED6
+006A   200D           00181                 CALL TIMEOUT
+                      00182 
+006B   1406           00183                 BSF LED1
+006C   200D           00184                 CALL TIMEOUT
+006D   1006           00185                 BCF LED1
+MPASM  5.35                          JOGO.ASM   11-22-2019  18:04:37         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+006E   200D           00186                 CALL TIMEOUT
+                      00187 
+006F   1586           00188                 BSF LED4
+0070   200D           00189                 CALL TIMEOUT
+0071   1186           00190                 BCF LED4
+0072   200D           00191                 CALL TIMEOUT
+                      00192                 
+0073   2877           00193                 GOTO GAME
+                      00194 
+Warning[207]: Found label after column 1. (TESTE)
+0074                  00195         TESTE
+0074   1406           00196                 BSF LED1
+0075   200D           00197                 CALL TIMEOUT    
+                      00198 
+0076   2877           00199         GOTO GAME
+                      00200 
+                      00201 
+Warning[207]: Found label after column 1. (GAME)
+0077                  00202         GAME
+0077   283F           00203                 GOTO ONLED
+                      00204                 ;GOTO TESTE
+0078   2877           00205                 GOTO GAME
+                      00206 
+Warning[207]: Found label after column 1. (END1)
+0079                  00207         END1
+                      00208         END                     ;OBRIGATÓRIO
+MPASM  5.35                          JOGO.ASM   11-22-2019  18:04:37         PAGE  6
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
 ADEN                              00000003
-ATRASO1                           00000010
-ATRASO2                           00000012
+ATRASO1                           0000000F
+ATRASO1F                          0000002E
+ATRASO2                           00000011
+ATRASO2F                          00000030
 ATRASO3                           00000014
+ATRASO3F                          00000032
+ATRASOBUTAO                       00000016
 BOTAO                             PORTA,2
 BRGH                              00000002
 C                                 00000000
@@ -145,11 +317,20 @@ EECON2                            0000009D
 EEDATA                            0000009A
 EEIE                              00000007
 EEIF                              00000007
+END1                              00000079
 F                                 00000001
 FERR                              00000002
+FIM                               00000026
 FSR                               00000004
+GAME                              00000077
 GIE                               00000007
 INDF                              00000000
+MPASM  5.35                          JOGO.ASM   11-22-2019  18:04:37         PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 INICIO                            00000001
 INTCON                            0000000B
 INTE                              00000004
@@ -157,12 +338,6 @@ INTEDG                            00000006
 INTF                              00000001
 IRP                               00000007
 LED1                              PORTB,0
-MPASM  5.35                          JOGO.ASM   11-21-2019  18:22:05         PAGE  4
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 LED2                              PORTB,1
 LED3                              PORTB,2
 LED4                              PORTB,3
@@ -178,6 +353,7 @@ NOT_RBPU                          00000007
 NOT_T1SYNC                        00000002
 NOT_TO                            00000004
 OERR                              00000001
+ONLED                             0000003F
 OPTION_REG                        00000081
 OSCF                              00000003
 PCL                               00000002
@@ -189,6 +365,7 @@ PIR1                              0000000C
 PORTA                             00000005
 PORTB                             00000006
 PR2                               00000092
+PREWIN                            00000021
 PS0                               00000000
 PS1                               00000001
 PS2                               00000002
@@ -207,6 +384,12 @@ RX9D                              00000000
 SPBRG                             00000099
 SPEN                              00000007
 SREN                              00000005
+MPASM  5.35                          JOGO.ASM   11-22-2019  18:04:37         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 STATUS                            00000003
 SYNC                              00000004
 T0CS                              00000005
@@ -216,16 +399,12 @@ T0SE                              00000004
 T1CKPS0                           00000004
 T1CKPS1                           00000005
 T1CON                             00000010
-MPASM  5.35                          JOGO.ASM   11-21-2019  18:22:05         PAGE  5
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 T1OSCEN                           00000003
 T2CKPS0                           00000000
 T2CKPS1                           00000001
 T2CON                             00000012
+TEMPO                             00000023
+TESTE                             00000074
 TIMEOUT                           0000000D
 TMR0                              00000001
 TMR1CS                            00000001
@@ -245,7 +424,6 @@ TOUTPS3                           00000006
 TRISA                             00000085
 TRISB                             00000086
 TRMT                              00000001
-TTTT                              0000001B
 TX9                               00000006
 TX9D                              00000000
 TXEN                              00000005
@@ -265,6 +443,12 @@ W                                 00000000
 WR                                00000001
 WREN                              00000002
 WRERR                             00000003
+MPASM  5.35                          JOGO.ASM   11-22-2019  18:04:37         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 Z                                 00000002
 _BODEN_OFF                        00003FBF
 _BODEN_ON                         00003FFF
@@ -275,12 +459,6 @@ _CP_ON                            00001FFF
 _DATA_CP_OFF                      00003FFF
 _DATA_CP_ON                       00003EFF
 _ER_OSC_CLKOUT                    00003FFF
-MPASM  5.35                          JOGO.ASM   11-21-2019  18:22:05         PAGE  6
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 _ER_OSC_NOCLKOUT                  00003FFE
 _EXTCLK_OSC                       00003FEF
 _HS_OSC                           00003FEE
@@ -306,17 +484,18 @@ __DEBUG                           1
 
 MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
 
-0000 : XXXXXXXXXXXXXXXX XXXXXXXXXXXX---- ---------------- ----------------
+0000 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXX-------
 2000 : -------X-------- ---------------- ---------------- ----------------
 
 All other memory blocks unused.
 
-Program Memory Words Used:    28
-Program Memory Words Free:  2020
+Program Memory Words Used:   121
+Program Memory Words Free:  1927
 
 
 Errors   :     0
-Warnings :     7 reported,     0 suppressed
-Messages :     5 reported,     0 suppressed
+Warnings :    16 reported,     0 suppressed
+Messages :     9 reported,     0 suppressed
 
 
