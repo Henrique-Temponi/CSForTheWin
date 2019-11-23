@@ -26,20 +26,38 @@ main:
 
 fazerArranjo:
 	
-	 slti $t0, $a1, 31		#
+	 slti $t0, $a1, 31		# if ( param < 31) , t0 = 1
 	 bne $t0, $zero, paramValido	#
 	 	addi $a1, $zero, 30	# ajudar param para 30 se o valor inicial for maior que 30
 	 paramValido:
-	 
-	 
+	
 	 do:
-	 	 
-	 #while
+		andi $t0, $a1, 1	# conferir se numero e' par, 1 se par, 0 se impar
+		bne $t0, $zero, par
+			
+			addi $sp, $sp, -4	# reservar espaco na pilha
+			sw $ra, 4($sp)		# salvar o retorno da funcao ($ra)
+			
+			jal elevar		# chamar funcao elevar
+			
+			lw $ra, 4($sp)		# carregar valor de ra da pilha
+			addi $sp, $sp, 4	# restalrar pilha
+			
+			sw $v0, 0($a0)		# quardar o resuldade da eleva na memoria
+		par:
+		
+		
+		
+		addi $a0, $a0, 4		#
+		addi $a1, $a1, -1		#
+		
+	bne $a1, $zero, do		# while ( param != zero ) goto do
 	 
 	 
 
 elevar:
-	
+	sll $v0, $a1, 1
+	jr $ra
 	
 .data
 	x: .word 0x1001008
