@@ -1,0 +1,89 @@
+LW $S1, num($S2)
+
+	1 - o PC pega o endereco da instrução
+	2 - le o endereco da instrução
+	3 - coloca no barramento
+	4 - os registradores sao colocados no banco de regisradores
+	5 - como essa instruicao é imediata. ela passa por um extensor de sinal
+		transformando ela em 16 bits para 32
+	6 - depois é realizado a soma na ULA, com o num imediato e seu endereco base
+	7 - resultado da soma é lido na memoria
+	8 - retorna o valor lido para o resgitrador de saida
+	
+SW $S1, num($S2)
+
+	1 - o PC pega o endereco da instrução
+	2 - le o endereco da instrução
+	3 - coloca no barramento
+	4 - registradores para o banco
+	5 - extende o imediato
+	6 - soma ULA
+	7 - pega o valor da memoria (ler memoria)
+	
+BEQ $S1, $S2, pulos
+
+	1 - o PC pega o endereco da instrução
+	2 - le o endereco da instrução
+	3 - coloca no barramento
+	4 - registradores para o banco (nesse os dois)
+	5 - subtrair os dois, uma flag (0) vai falar se eles sao iguals ou diferentes
+	6 - se a flag for 0 sao iguals, se nao diferentes
+	7 - pegar o pulos e multiplicar por 4, e somar com o pc atual
+	
+ADD $S1, $S2, $S3
+
+	1 - o PC pega o endereco da instrução
+	2 - le o endereco da instrução
+	3 - coloca no barramento
+	4 - registradores para o banco
+	5 - ir para a ula para somar
+	6 - depois no retorno n usar memoria
+	7 - gravar no registrador de saida
+
+Q4
+	a)
+	LW $S1, num($S2)
+	4ns + 1ns + 2ns + 4ns + 1ns = 12ns
+	PC    REG   ULA   MEM   REG
+	
+	SW $S1, num($S2)
+	4ns + 1ns + 2ns + 4ns = 11ns
+	PC    REG   ULA   MEM
+	
+	BEQ $S1, $S2, pulos
+	4ns + 1ns + 2ns = 7ns
+	PC    REG   ULA
+	
+	ADD $S1, $S2, $S3
+	4ns + 1ns + 2ns + 1ns = 8ns
+	PC 	  REG   ULA   REG
+	
+	b)
+	GCC (22% lw, 11% sw, 49% alu, 16% beq, 2% j)
+	12*0.22 + 11*0.11 + 2*0.49 + 7*0.16 + 4*0.04 =
+	2,64 + 1,21 + 0,98 + 1,12 + 0,16 = 6,11
+	
+	ABC (11% lw, 49% sw, 22% alu, 2% beq, 16% j) 
+	12*0.11 + 11*0.49 + 2*0.22 + 7*0.02 + 4*0.16 =
+	1,32 + 5,39 + 0,44 + 0.14 + 0,64 = 7,93
+	
+	6,11/7,93 = ???
+	
+	
+Q5
+	IF - Instruction fetch
+	ID - Instruction decode
+	EX - Execute
+	MEM- Memory Access
+	WB - Write Back
+	
+	
+Q6
+25% de loads, 10% de stores, 11% de desvios(beq), 2% de jumps e 52% de operações 
+
+2 x 10^9 = 1/x  . 2Ghz = 0,5ns
+
+x = 1/2 x10^-9 = 0.5ns 
+
+miliseconds = 10^-3
+
