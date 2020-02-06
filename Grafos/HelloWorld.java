@@ -12,30 +12,30 @@ public class HelloWorld extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-    //    Button btn = new Button();
-    //    btn.setText("Say 'Hello World'");
-    //    btn.setOnAction(new EventHandler<ActionEvent>() {
-    //
-    //        @Override
-    //        public void handle(ActionEvent event) {
-    //           System.out.println("Hello World!");
-    //        }
-    //    });
-    //    
+        Button btn = new Button(); // fazer um novo butao 
+        btn.setText("Say 'Hello World'"); //setar o que o butao vai falar
+        btn.setOnAction(new EventHandler<ActionEvent>() { //quando o butao apertado fazer uma novo handler de evento
+    
+            @Override
+            public void handle(ActionEvent event) { //provavelmente esse metodo deve ter apenas uma funcao, pego o event handler
+               System.out.println("Hello World!");  //e quando for ativado e imprimir hello world no console
+            }
+        });
+		
+        
 		StackPane root = new StackPane(); // comeca um novo paineu de formato de stack
-    //   root.getChildren().add(btn);
-    //
+		root.getChildren().add(btn);    
 		Scene scene = new Scene(root, 300, 250, Color.RED); //Inicia a scene com as propriedades, e com root de guia
-    //	
+    	
         primaryStage.setTitle("Hello World!"); // cria o titulo da janela
         primaryStage.setScene(scene); //settar a scene como a cena atual
         primaryStage.show(); // mostrar
 		
 		System.out.println("Hello");
 		
-		try {
-			TimeUnit.SECONDS.sleep(5);
-		} catch (Exception x) { }
+		//try {
+		//	TimeUnit.SECONDS.sleep(5);
+		//} catch (Exception x) { }
 		
 		
     }
